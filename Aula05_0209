@@ -1,0 +1,236 @@
+Android studio
+New Project → Empty Views Activity 
+Name Activies; Language Java; Minimum SDK: API 26 (“Oreo”; Android 8.0); Build configuration languagem: Groovy DSL (build.gradle).
+
+Lado esquerdo →app → java → com.example.activies → New → Activity → Empty Views Activity → Nome ProximaActivity → finish
+
+Activity_main.xml
+Ab TextView  
+Atibuttes (lado direito)
+text: Primeira Activity 
+na lupa escrever size → textSize, tamanho de letra
+Ancorar as margens do TextView
+
+
+Button;
+id (lado direito)  colocar botaoId;
+Ancorar as margens do botão;
+Text: Próxima
+
+Activity_proxima.xml
+Ab TextView  
+Atibuttes (lado direito)
+text: Voltar para a primeira 
+na lupa escrever size → textSize, tamanho de letra
+Ancorar as margens do TextView
+
+
+Button;
+id (lado direito)  colocar botaoVoltar;
+Ancorar as margens do botão;
+Text: Voltar
+
+
+Main Activity.java
+package com.example.activies;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+    private Button botao;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        botao = findViewById(R.id.botaoId);
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ProximaActivity.class));
+            }
+        });
+    }
+}
+
+ProximaActivity.java
+package com.example.activies;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class ProximaActivity extends AppCompatActivity {
+    private Button voltar;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_primeiro);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        voltar = findViewById(R.id.botaoVoltar);
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //startActivity(new Intent(ProximaActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+    }
+}
+
+
+
+Liberato
+
+New Project → Empty Views Activity 
+Name Liberato; Language Java; Minimum SDK: API 26 (“Oreo”; Android 8.0); Build configuration languagem: Groovy DSL (build.gradle).
+
+Downloads em jpg → Copiar as fotos do Liberato → lado esquerdo → app → res → drawable → bd Paste.
+
+layout → bd → New → Activity → Empty View Activity → Nome: ContatosActivity
+repetir para CursosActivity, FundacaoActivity, NoticiasActivity.
+
+activity_main.xml
+Palette:
+ImageView  (arrastar até o protótipo), ele já abre as figuras do app.
+Atributes (lado direito); 
+Ancorar as margens da imagem;
+Ajustar a cor se figura tiver fundo diferente → Atributtes → lupa: background;
+Color Picker
+Colar a cor no background → clicar na figura
+imageView → fundacaoId, cursosId, noticiasId e contatosId
+
+
+
+activity_fundacao.xml
+Componente Tree
+ImageView:  voltarId
+ScrollView → arrastar textView para LinearLayout (110 margem superior e laterais 30)
+
+Values → strings.xml → cola o texto
+textView2 → text Pick a resource (botão lateral Atributtes) → abre e escolhe o string
+
+
+
+
+activity_cursos.xml
+
+activity_cursos.xml → na mesma barra botão Code
+tools:context=".CursosActivity">
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+Entre esses dois colar o código do Márcio e o design está pronto
+
+
+MainActivity.java
+public class MainActivity extends AppCompatActivity {
+    private ImageView fundacao;
+    private ImageView cursos;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        fundacao = findViewById(R.id.fundacaoId);
+        fundacao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        FundacaoActivity.class));
+            }
+        });
+        cursos = findViewById(R.id.cursosId);
+        cursos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        CursosActivity.class));
+            }
+        });
+
+    }
+}
+
+
+FundacaoActivity.java
+public class FundacaoActivity extends AppCompatActivity {
+    private ImageView voltar;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_fundacao);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        voltar = findViewById(R.id.voltarFundacao);
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+}
+
+
+CursosActivity.java
+public class CursosActivity extends AppCompatActivity {
+    private ImageView voltar;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_cursos);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        voltar = findViewById(R.id.btVoltarCursosId);
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+}
+
+
+
