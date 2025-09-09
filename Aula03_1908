@@ -1,0 +1,242 @@
+Android studio
+New Project → Empty Views Activity 
+Name; Language Java; Minimum SDK: API 26 (“Oreo”; Android 8.0); Build configuration languagem: Groovy DSL (build.gradle).
+Em values lado esquerdo da tela -colors.xml; strings.xml e themes.xml
+C:\Users\Tati\AndroidStudioProjects\IdadeCachorro
+
+Activity_main.xml
+Downloads em jpg → Copiar a foto de cachorro  → lado esquerdo → app → res → drawable → bd Paste.
+Palette:
+ImageView  (arrastar até o protótipo), ele já abre as figuras do app.
+Atributes (lado direito); 
+Ancorar as margens da imagem;
+Ajustar a cor se figura tiver fundo diferente → Atributtes → lupa: background;
+
+
+Ab TextView  
+Atibuttes (lado direito)
+text: Digite a idade do cão 
+na lupa escrever size → textSize, tamanho de letra
+Ancorar as margens do TextView
+
+
+Palette → Text → Ab Number arrasta → clicar sobre o ! → no editTextNumber<EditText>:Touch target size too small → bd → Show Quick Fixes
+Id: idadeId
+
+Button;
+id (lado direito)  colocar botaoId;
+Ancorar as margens do botão;
+Alterar o texto do botão para Mostrar Frase (text no lado direito);
+
+Ab TextView  
+Atibuttes (lado direito)
+Id: respostaId
+text: A idade em anos humanos é
+na lupa escrever size → textSize, tamanho de letra
+Ancorar as margens do TextView
+
+
+Mudar a cor 
+Ab TextView (lado direito): se não aparecer textColor no declared atributtes, clicar no + e escrever textColor, aí aparece a opção para paleta de cores. pelo conta gotas a paleta, e no botão à direita mostra as cores usadas? Tenho que escrever.
+Em values lado esquerdo da tela -colors.xml clicar 2x e aparece as cores do protótipo
+
+Para mudar a cor de fundo do botão: Use android:backgroundTint para apenas mudar a cor do fundo.
+
+Main Activity.java
+package com.example.idadecachorro;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+    private Button botao;
+    private TextView resposta;
+    private EditText idade;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        // Relacionar Componentes
+        botao = findViewById(R.id.botaoId);
+        resposta = findViewById(R.id.respostaId);
+        idade = findViewById(R.id.idadeId);
+
+        //Ação nop botao
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valor = idade.getText().toString();
+                if(valor.isEmpty()){
+                    resposta.setText("Informe a idade do cão");
+                }
+                else{
+                    int numero = Integer.parseInt(valor);
+                    resposta.setText("A idade em anos humanos é: "+numero*7);
+                }
+            }
+        });
+    }
+}
+
+
+
+Desenvolver um app chamado IdadeCachorro baseado no app Idade Cão da aula, escolhendo uma figura na Internet, e personalizando o tamanho dos textos. Colocar um botão para limpar a resposta e o campo na qual se coloca a idade. 
+Postar o app em arquivo zipado na atividade.
+package com.example.exercicio1_1908;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+    private Button botao;
+    private Button botaoLimpar;
+    private TextView resposta;
+    private EditText idade;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        // Relacionar Componentes
+        botao = findViewById(R.id.botaoId);
+        resposta = findViewById(R.id.respostaId);
+        idade = findViewById(R.id.idadeId);
+        botaoLimpar = findViewById(R.id.botaoId1);
+
+        //Ação nop botao
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valor = idade.getText().toString();
+                if(valor.isEmpty()){
+                    resposta.setText("Informe a idade do cão");
+                }
+                else{
+                    int numero = Integer.parseInt(valor);
+                    resposta.setText("A idade em anos humanos é: "+numero*7);
+                }
+            }
+        });
+        // Ação do botão de limpar
+        botaoLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                idade.setText(""); // limpa o texto
+                resposta.setText(""); // limpa o texto
+
+            }
+        });
+    }
+}
+
+
+Desenvolver um app que possa se informar 2 números decimais, via EditText, tenha um botão(Button) para Calcular, e mostre o resultado (TextView). Personalizar o tamanho e cores dos textos, e também ter um botão para limpar os campos e o resultado. Colocar uma imagem.
+
+package com.example.exercicio2_1908;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+    private Button botao;
+    private Button botaoLimpar;
+    private TextView resposta;
+    private EditText numero1;
+    private EditText numero2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        // Relacionar Componentes
+        botao = findViewById(R.id.botaoId);
+        resposta = findViewById(R.id.respostaId);
+        numero1 = findViewById(R.id.num1Id);
+        numero2 = findViewById(R.id.num2Id);
+        botaoLimpar = findViewById(R.id.botao1Id);
+
+        //Ação nop botao
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valor1 = numero1.getText().toString();
+                String valor2 = numero2.getText().toString();
+
+                if (valor1.isEmpty() || valor2.isEmpty()) {
+                    resposta.setText("Preencha os dois números");
+                } else {
+                    double num1 = Double.parseDouble(valor1);
+                    double num2 = Double.parseDouble(valor2);
+                    double soma = num1 + num2;
+                    resposta.setText("A soma é: " + soma);
+                    // Formatar com 2 casas decimais
+                    String resultadoFormatado = String.format("A soma é: %.2f", soma);
+                    resposta.setText(resultadoFormatado);
+
+                    // Se quiser formatar os inputs também (opcional):
+                    numero1.setText(String.format("%.2f", num1));
+                    numero2.setText(String.format("%.2f", num2));
+                }
+
+            }
+
+        });
+        // Ação do botão de limpar
+        botaoLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numero1.setText(""); // limpa o texto
+                numero2.setText(""); // limpa o texto
+                resposta.setText(""); // limpa o texto
+
+            }
+        });
+    }
+}
+
