@@ -1,0 +1,208 @@
+Android studio
+New Project → Empty Views Activity 
+Name; Language Java; Minimum SDK: API 26 (“Oreo”; Android 8.0); Build configuration languagem: Groovy DSL (build.gradle).
+Em values lado esquerdo da tela -colors.xml; strings.xml e themes.xml
+C:\Users\Tati\AndroidStudioProjects\FrasesMotivacionais
+
+
+Activity_main.xml
+Palette:
+Ab TextView (arrastar até o protótipo)
+Atributes (lado direito); id  colocar textoId;
+Ancorar as margens da caixa de texto;
+Deletar o texto na caixa de texto (text no lado direito);
+
+Atibuttes (lado direito) na lupa escrever size → textSize, tamanho de letra.
+
+Palette:
+Button;
+id (lado direito)  colocar botaoId;
+Ancorar as margens do botão;
+Alterar o texto do botão para Mostrar Frase (text no lado direito);
+
+Mudar a cor 
+Ab TextView (lado direito): se não aparecer textColor no declared atributtes, clicar no + e escrever textColor, aí aparece a opção para paleta de cores.
+Em values lado esquerdo da tela -colors.xml clicar 2x e aparece as cores do protótipo
+
+Para mudar a cor de fundo do botão: Use android:backgroundTint para apenas mudar a cor do fundo.
+•	e essa cor não está definida em res/values/colors.xml, vai dar erro.
+✔️ Verifique se existe:
+<color name="botao_verde">#4CAF50</color>
+
+
+Main Activity.java
+
+package com.example.frasesmotivacionais1;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import java.util.Random;
+
+public class MainActivity extends AppCompatActivity {
+    private Button botao; (importar a classe, Alt + Enter)
+
+    private TextView texto;
+    private String[] frases = {"Se você traçar metas absurdamente altas e falhar, seu fracasso será muito melhor que o sucesso de todos. ",
+            "O sucesso normalmente vem para quem está ocupado demais para procurar por ele.",
+            "Se você não está disposto a arriscar, esteja disposto a uma vida comum.",
+            "Vencedor não é aquele que sempre vence, mas sim aquele que nunca para de lutar.",
+            "Às vezes você tem que levantar sozinho e seguir em frente...",
+            "Não tenha medo da mudança. Coisas boas se vão para que melhores possam vir.",
+            "Não chore porque acabou, sorria porque aconteceu.",
+            "Nunca diga eu não consigo. Você consegue sim, basta ter força de vontade e fé.",
+            "Tudo é possível. O impossível apenas demora mais...",
+            "No fim tudo dá certo, e se não deu certo é porque ainda não chegou ao fim.",
+            "Só parte pra agressão, quem não se garante na sinuca",
+
+            "Não se preocupe em cair, cobra não anda, rasteja"};
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        //Relacionar o componente gráfico com o objeto
+        botao = findViewById(R.id.botaoId);
+        texto = findViewById(R.id.textoId);
+        //Colocar ação no botão
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random numero = new Random();
+                int sorteado = numero.nextInt(frases.length);
+                texto.setText(frases[sorteado]);
+
+            }
+        });
+    }
+}
+
+
+Segunda parte: Forçar a sincronização do projeto
+Se o botão “Sync Now” não apareceu, faça isso manualmente:
+➤ 🔧 Manualmente:
+1.	Vá até o menu superior:
+File > Sync Project with Gradle Files
+(isso força o Android Studio a reconhecer a nova cor)
+2.	Ou use o atalho:
+Ctrl + Shift + A → digite Sync Project e selecione a opção.
+
+package com.example.exercicio1;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+    private Button botaoMensagem;
+    private Button botaoLimpar;
+    private TextView texto;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        // Relacionar componentes
+        botaoMensagem = findViewById(R.id.botaoId);
+        botaoLimpar = findViewById(R.id.botaoId1);
+        texto = findViewById(R.id.textoId);
+
+        // Ação do botão de mensagem
+        botaoMensagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                texto.setText("Você clicou no botão");
+            }
+        });
+
+        // Ação do botão de limpar
+        botaoLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                texto.setText(""); // limpa o texto
+			texto.setText("Você limpou"); // insere novo texto
+            }
+        });
+
+    }
+}
+
+package com.example.exercicio2_1208;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import java.util.Random;
+
+public class MainActivity extends AppCompatActivity {
+    private Button botao;
+    private TextView texto;
+    private String[] ditados = {"Água mole em pedra dura, tanto bate até que fura.",
+            "Quem com ferro fere, com ferro será ferido.",
+            "Mais vale um pássaro na mão do que dois voando.",
+            "Deus ajuda quem cedo madruga.",
+            "Em casa de ferreiro, espeto de pau.",
+            "Cavalo dado não se olha os dentes.",
+            "Quem espera sempre alcança.",
+            "Antes tarde do que nunca.",
+            "Quem não tem cão, caça com gato.",
+            "Cada macaco no seu galho."};
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        //Relacionar componentes
+        botao = findViewById(R.id.botaoId);
+        texto = findViewById(R.id.textoId);
+        //Ação no botão ditados
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random numero = new Random();
+                int sorteado = numero.nextInt(ditados.length);
+                texto.setText(ditados[sorteado]);
+
+            }
+        });
+    }
+}
+
