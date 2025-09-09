@@ -1,0 +1,72 @@
+Android studio
+New Project → Empty Views Activity 
+Name; Language Java; Minimum SDK: API 26 (“Oreo”; Android 8.0); Build configuration languagem: Groovy DSL (build.gradle).
+Em values lado esquerdo da tela -colors.xml; strings.xml e themes.xml
+
+Activity_main.xml
+Palette:
+Ab TextView (arrastar até o protótipo)
+id (lado direito)  colocar textoId;
+Ajustar as margens da caixa de texto;
+Deletar o texto na caixa de texto (text no lado direito);
+
+Atibuttes (lado direito) na lupa escrever size → textSize
+
+Palette:
+Button;
+id (lado direito)  colocar botaoId;
+Ajustar as margens do botão;
+Alterar o texto do botão para Clique aqui (text no lado direito);
+
+Mudar a cor 
+Ab TextView (lado direito): se não aparecer textColor no declared atributtes, clicar no + e escrever textColor, aí aparece a opção para paleta de cores. pelo conta gotas a paleta, e no botão à direita mostra as cores usadas? Tenho que escrever.
+Em values lado esquerdo da tela -colors.xml clicar 2x e aparece as cores do protótipo
+
+
+
+Main Activity.java
+
+private Button botao;
+private TextView texto;
+Clicar e Alt + enter e importar class
+Código (em vermelho adicionado)
+package com.example.primeiroapp;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+    private Button botao;
+    private TextView texto;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        //Relacionar o componente gráfico com o objeto
+        botao = findViewById(R.id.botaoId);
+        texto = findViewById(R.id.textoId);
+
+        //Colocar ação no botão
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                texto.setText("Você clicou no botão");
+            }
+        });
+    }
+}
