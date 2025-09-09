@@ -1,0 +1,152 @@
+
+Android studio
+New Project → Empty Views Activity 
+Name; Language Java; Minimum SDK: API 26 (“Oreo”; Android 8.0); Build configuration languagem: Groovy DSL (build.gradle).
+Em values lado esquerdo da tela -colors.xml; strings.xml e themes.xml
+C:\Users\Tati\AndroidStudioProjects\IdadeCachorro
+Activity_main.xml
+Button;
+id (lado direito)  colocar botaoId;
+Ancorar as margens do botão;
+Alterar o texto do botão para Mostrar Frase (text no lado direito);
+
+Main Activity.java
+package com.example.toast;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+    private Button botao;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        // Relacionar Componentes
+        botao = findViewById(R.id.botaoId);
+        //Ação no botao
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),
+                        "Você clicou no botão",
+                        Toast.LENGTH_LONG).show();
+
+
+
+            }
+        });
+    }
+}
+
+
+
+Exercício
+Fazer um App com uma imagem de bomba de gasolina, ter local para colocar o valor do Álcool e o valor da Gasolina, avisar se um ou ambos dos campos deve ser preenchido com o TOAST, e mostrar uma mensagem dizendo melhor abastecer com Álcool ou melhor abastecer com Gasolina.
+
+Activity_main.xml
+Downloads em jpg → Copiar a foto de bomba de gasolina  → lado esquerdo → app → res → drawable → bd Paste.
+Palette:
+ImageView  (arrastar até o protótipo), ele já abre as figuras do app.
+Atributes (lado direito); 
+Ancorar as margens da imagem;
+Ajustar a cor se figura tiver fundo diferente → Atributtes → lupa: background;
+
+Palette → Text → Ab Number Decimal arrasta → clicar sobre o ! → no editTextNumber<EditText>:Touch target size too small → bd → Show Quick Fixes
+Id: gasolinaId
+E outro alcoolId
+
+TextView
+Atibuttes (lado direito)
+text: Gasolina 
+na lupa escrever size → textSize, tamanho de letra
+Ancorar as margens do TextView
+E outro Álcool
+
+
+Button;
+id (lado direito)  colocar botaoId;
+Ancorar as margens do botão;
+Alterar o texto do botão para Mostrar Frase (text no lado direito);
+
+Mudar a cor 
+Ab TextView (lado direito): se não aparecer textColor no declared atributtes, clicar no + e escrever textColor, aí aparece a opção para paleta de cores. pelo conta gotas a paleta, e no botão à direita mostra as cores usadas? Tenho que escrever.
+Em values lado esquerdo da tela -colors.xml clicar 2x e aparece as cores do protótipo
+
+Para mudar a cor de fundo do botão: Use android:backgroundTint para apenas mudar a cor do fundo.
+Main Activity.java
+
+package com.example.abastecetoast;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+    private EditText gasolina, alcool;
+    private Button botao;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        botao = findViewById(R.id.botaoId);
+        gasolina = findViewById(R.id.gasolinaId);
+        alcool = findViewById(R.id.alcoolId);
+
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valorAlcool = alcool.getText().toString();
+                String valorGasolina = gasolina.getText().toString();
+                if (valorAlcool.isEmpty() || valorGasolina.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Preencha ambos os campos!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                try {
+                    double alcoolId = Double.parseDouble(valorAlcool);
+                    double gasolinaId = Double.parseDouble(valorGasolina);
+
+                    if (alcoolId / gasolinaId <= 0.7) {
+                        Toast.makeText(MainActivity.this, "Melhor abastecer com Álcool!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Melhor abastecer com Gasolina!", Toast.LENGTH_LONG).show();
+                    }
+                } catch (NumberFormatException e) {
+                    Toast.makeText(MainActivity.this, "Digite valores válidos!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
+
