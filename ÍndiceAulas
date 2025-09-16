@@ -1,0 +1,273 @@
+Índice de aulas:
+
+Aula 01 05/08	private Button botao;
+    private TextView texto;
+...        
+        });
+
+        //Relacionar o componente gráfico com o objeto
+        botao = findViewById(R.id.botaoId);
+        texto = findViewById(R.id.textoId);
+
+        //Colocar ação no botão
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                texto.setText("Você clicou no botão");
+            }
+        });
+
+Aula 02 12/08	private Button botao; (importar a classe, Alt + Enter)
+
+    private TextView texto;
+    private String[] frases = {"Se você traçar metas absurdamente altas e falhar, seu fracasso será muito melhor que o sucesso de todos. ",
+            "O sucesso normalmente vem para quem está ocupado demais para procurar por ele.",
+            "Se você não está disposto a arriscar, esteja disposto a uma vida comum.",
+            "Vencedor não é aquele que sempre vence, mas sim aquele que nunca para de lutar.",
+            "Às vezes você tem que levantar sozinho e seguir em frente...",
+            "Não tenha medo da mudança. Coisas boas se vão para que melhores possam vir.",
+            "Não chore porque acabou, sorria porque aconteceu.",
+            "Nunca diga eu não consigo. Você consegue sim, basta ter força de vontade e fé.",
+            "Tudo é possível. O impossível apenas demora mais...",
+            "No fim tudo dá certo, e se não deu certo é porque ainda não chegou ao fim.",
+            "Só parte pra agressão, quem não se garante na sinuca",
+            "Não se preocupe em cair, cobra não anda, rasteja"};
+...
+
+        });
+        //Relacionar o componente gráfico com o objeto
+        botao = findViewById(R.id.botaoId);
+        texto = findViewById(R.id.textoId);
+        //Colocar ação no botão
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random numero = new Random();
+                int sorteado = numero.nextInt(frases.length);
+                texto.setText(frases[sorteado]);
+
+            }
+        });
+
+Aula 02 12/08	private Button botaoMensagem;
+    private Button botaoLimpar;
+    private TextView texto;
+...
+});
+        // Relacionar componentes
+        botaoMensagem = findViewById(R.id.botaoId);
+        botaoLimpar = findViewById(R.id.botaoId1);
+        texto = findViewById(R.id.textoId);
+
+        // Ação do botão de mensagem
+        botaoMensagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                texto.setText("Você clicou no botão");
+            }
+        });
+
+        // Ação do botão de limpar
+        botaoLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                texto.setText(""); // limpa o texto
+			texto.setText("Você limpou"); // insere novo texto
+            }
+        });
+
+Aula 03 19/08	Downloads em jpg → Copiar a foto de cachorro  → lado esquerdo → app → res → drawable → bd Paste.
+Palette:
+ImageView  (arrastar até o protótipo), ele já abre as figuras do app.
+    private Button botao;
+    private TextView resposta;
+    private EditText idade;
+...
+        });
+        // Relacionar Componentes
+        botao = findViewById(R.id.botaoId);
+        resposta = findViewById(R.id.respostaId);
+        idade = findViewById(R.id.idadeId);
+
+        //Ação nop botao
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valor = idade.getText().toString();
+                if(valor.isEmpty()){
+                    resposta.setText("Informe a idade do cão");
+                }
+                else{
+                    int numero = Integer.parseInt(valor);
+                    resposta.setText("A idade em anos humanos é: "+numero*7);
+                }
+            }
+        });
+
+Aula 03 19/08	private Button botao;
+    private Button botaoLimpar;
+    private TextView resposta;
+    private EditText idade;
+...
+});
+        // Relacionar Componentes
+        botao = findViewById(R.id.botaoId);
+        resposta = findViewById(R.id.respostaId);
+        idade = findViewById(R.id.idadeId);
+        botaoLimpar = findViewById(R.id.botaoId1);
+
+        //Ação nop botao
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valor = idade.getText().toString();
+                if(valor.isEmpty()){
+                    resposta.setText("Informe a idade do cão");
+                }
+                else{
+                    int numero = Integer.parseInt(valor);
+                    resposta.setText("A idade em anos humanos é: "+numero*7);
+                }
+            }
+        });
+        // Ação do botão de limpar
+        botaoLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                idade.setText(""); // limpa o texto
+                resposta.setText(""); // limpa o texto
+
+            }
+        });
+
+Aula03 19/08	private Button botao;
+    private Button botaoLimpar;
+    private TextView resposta;
+    private EditText numero1;
+    private EditText numero2;
+...
+        // Relacionar Componentes
+        botao = findViewById(R.id.botaoId);
+        resposta = findViewById(R.id.respostaId);
+        numero1 = findViewById(R.id.num1Id);
+        numero2 = findViewById(R.id.num2Id);
+        botaoLimpar = findViewById(R.id.botao1Id);
+
+        //Ação nop botao
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valor1 = numero1.getText().toString();
+                String valor2 = numero2.getText().toString();
+
+                if (valor1.isEmpty() || valor2.isEmpty()) {
+                    resposta.setText("Preencha os dois números");
+                } else {
+                    double num1 = Double.parseDouble(valor1);
+                    double num2 = Double.parseDouble(valor2);
+                    double soma = num1 + num2;
+                    resposta.setText("A soma é: " + soma);
+                    // Formatar com 2 casas decimais
+                    String resultadoFormatado = String.format("A soma é: %.2f", soma);
+                    resposta.setText(resultadoFormatado);
+
+                    // Se quiser formatar os inputs também (opcional):
+                    numero1.setText(String.format("%.2f", num1));
+                    numero2.setText(String.format("%.2f", num2));
+                }
+
+            }
+
+        });
+        // Ação do botão de limpar
+        botaoLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numero1.setText(""); // limpa o texto
+                numero2.setText(""); // limpa o texto
+                resposta.setText(""); // limpa o texto
+
+            }
+        });
+
+Aula04 26/08   Toast	    private EditText gasolina, alcool;
+    private Button botao;
+...
+});
+// Relacionar Componentes
+        botao = findViewById(R.id.botaoId);
+        gasolina = findViewById(R.id.gasolinaId);
+        alcool = findViewById(R.id.alcoolId);
+        
+//Ação no botao
+
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valorAlcool = alcool.getText().toString();
+                String valorGasolina = gasolina.getText().toString();
+                if (valorAlcool.isEmpty() || valorGasolina.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Preencha ambos os campos!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                try {
+                    double alcoolId = Double.parseDouble(valorAlcool);
+                    double gasolinaId = Double.parseDouble(valorGasolina);
+
+                    if (alcoolId / gasolinaId <= 0.7) {
+                        Toast.makeText(MainActivity.this, "Melhor abastecer com Álcool!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Melhor abastecer com Gasolina!", Toast.LENGTH_LONG).show();
+                    }
+                } catch (NumberFormatException e) {
+                    Toast.makeText(MainActivity.this, "Digite valores válidos!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+Aula05 0209	MainActivity
+private ImageView fundacao;
+    private ImageView cursos;
+
+        });
+        fundacao = findViewById(R.id.fundacaoId);
+        fundacao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        FundacaoActivity.class));
+            }
+        });
+        cursos = findViewById(R.id.cursosId);
+        cursos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        CursosActivity.class));
+            }
+        });
+
+FundacaoActivity
+private ImageView voltar;
+});
+        voltar = findViewById(R.id.voltarFundacao);
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+CursosActivity.java
+private ImageView voltar;
+});
+        voltar = findViewById(R.id.btVoltarCursosId);
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
