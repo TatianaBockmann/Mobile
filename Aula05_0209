@@ -1,3 +1,7 @@
+
+bd = botão direito
+Aula 02/09 
+
 Android studio
 New Project → Empty Views Activity 
 Name Activies; Language Java; Minimum SDK: API 26 (“Oreo”; Android 8.0); Build configuration languagem: Groovy DSL (build.gradle).
@@ -137,7 +141,13 @@ Values → strings.xml → cola o texto
 textView2 → text Pick a resource (botão lateral Atributtes) → abre e escolhe o string
 
 
+activity_contatos.xml
+Componente Tree
+ImageView:  botaoVoltarContatosId
 
+activity_noticias.xml
+Componente Tree
+ImageView:  botaoVoltarNoticiasId
 
 activity_cursos.xml
 
@@ -147,12 +157,45 @@ tools:context=".CursosActivity">
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 Entre esses dois colar o código do Márcio e o design está pronto
+<ImageView android:id="@+id/cursosId" android:layout_width="420dp" android:layout_height="wrap_content" android:background="#ff0000" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:srcCompat="@drawable/cabcursos" />
+
+<TextView android:id="@+id/textView" android:layout_width="282dp" android:layout_height="wrap_content" android:layout_marginStart="51dp" android:layout_marginLeft="51dp" android:layout_marginTop="8dp" android:layout_marginEnd="51dp" android:layout_marginRight="51dp" android:text="Conheça todos os cursos técnicos oferecidos pela Fundação Escola Técnica Liberato Salzano Vieira da Cunha. " android:textSize="18sp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/cursosId" />
+
+<TextView android:id="@+id/textView2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="51dp" android:layout_marginLeft="51dp" android:layout_marginTop="5dp" android:text="Segurança do Trabalho" android:textColor="#4f9b53" android:textSize="24sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView5" tools:text="Segurança do Trabalho" />
+
+<TextView android:id="@+id/textView7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="51dp" android:layout_marginLeft="51dp" android:layout_marginTop="5dp" android:text="Manutenção Automotiva" android:textColor="#4f9b53" android:textSize="24sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView2" tools:text="Manutenção Automotiva" />
+
+<TextView android:id="@+id/textView6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="51dp" android:layout_marginLeft="51dp" android:layout_marginTop="5dp" android:text="Informática para Internet" android:textColor="#4f9b53" android:textSize="24sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView7" tools:text="Informática para Internet" />
+
+<TextView android:id="@+id/textView5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="51dp" android:layout_marginLeft="51dp" android:layout_marginTop="5dp" android:text="Eletrônica" android:textColor="#4f9b53" android:textSize="24sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView8" tools:text="Eletrônica" />
+
+<TextView android:id="@+id/textView9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="51dp" android:layout_marginLeft="51dp" android:layout_marginTop="5dp" android:text="Mecânica" android:textColor="#4f9b53" android:textSize="24sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView10" tools:text="Mecânica" />
+
+<TextView android:id="@+id/textView10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="51dp" android:layout_marginLeft="51dp" android:layout_marginTop="5dp" android:text="Química" android:textColor="#4f9b53" android:textSize="24sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView4" tools:text="Química" />
+
+<TextView android:id="@+id/textView4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="51dp" android:layout_marginLeft="51dp" android:layout_marginTop="5dp" android:text="Design de Interiores" android:textColor="#4f9b53" android:textSize="24sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView" tools:text="Design de Interiores" />
+
+<TextView android:id="@+id/textView8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="51dp" android:layout_marginLeft="51dp" android:layout_marginTop="5dp" android:text="Eletrotécnica" android:textColor="#4f9b53" android:textSize="24sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView9" tools:text="Eletrotécnica" />
+
+<ImageView
+    android:id="@+id/btVoltarCursosId"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_marginStart="180dp"
+    android:layout_marginTop="300dp"
+    android:layout_marginEnd="180dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView6"
+    app:srcCompat="@drawable/voltar" />
+
 
 
 MainActivity.java
 public class MainActivity extends AppCompatActivity {
-    private ImageView fundacao;
-    private ImageView cursos;
+    private ImageView fundacao, cursos, contatos, noticias;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,10 +223,24 @@ public class MainActivity extends AppCompatActivity {
                         CursosActivity.class));
             }
         });
-
+        contatos = findViewById(R.id.contatosId);
+        contatos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        ContatosActivity.class));
+            }
+        });
+        noticias = findViewById(R.id.noticiasId);
+        noticias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        NoticiasActivity.class));
+            }
+        });
     }
 }
-
 
 FundacaoActivity.java
 public class FundacaoActivity extends AppCompatActivity {
@@ -231,6 +288,55 @@ public class CursosActivity extends AppCompatActivity {
         });
     }
 }
+
+
+
+ContatosActivity.java
+public class ContatosActivity extends AppCompatActivity {
+    private ImageView voltar;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_contatos);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        voltar = findViewById(R.id.botaoVoltarContatos);
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+}
+
+NoticiasActivity.java
+public class NoticiasActivity extends AppCompatActivity {
+    private ImageView voltar;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_noticias);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        voltar = findViewById(R.id.botaoVoltarNoticias);
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+}
+
 
 
 
