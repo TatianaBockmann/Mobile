@@ -1,0 +1,255 @@
+bd = botão direito
+Aula 09/09 Prova 1
+ Desenvolver um aplicativo para dispositivo móvel que será uma calculadora de conversão de temperatura de graus Celsius para Fahrenheit e vice-versa e também para conversão de distância de quilômetros para milhas e vice-versa. As fórmulas de cálculo são facilmente encontradas na Internet.
+
+O aplicativo deverá utilizar:
+•	Cores e tamanhos de fontes diferentes do padrão;
+•	Usar imagens (Image View);
+•	Usar mais de uma Activity;
+•	Colocar o nome do seu criador
+•	Utilizar o Toast.
+
+
+Android studio
+New Project → Empty Views Activity 
+Name Activies; Language Java; Minimum SDK: API 26 (“Oreo”; Android 8.0); Build configuration languagem: Groovy DSL (build.gradle).
+
+Imagens → copia → cola na pasta drawable
+textStyle para negrito.
+
+Activity_main.xml
+Ab TextView  
+Atibuttes (lado direito)
+text: Converta 
+na lupa escrever size → textSize, tamanho de letra
+na lupa escrever colortext
+Ancorar as margens do TextView
+
+
+Button;
+id (lado direito)  colocar temperaturaId;
+Ancorar as margens do botão;
+Text: Temperatura
+
+Button;
+id (lado direito)  colocar distanciaId;
+Ancorar as margens do botão;
+Text: Distância
+
+Na lupa backgroundTint para mudar a cor do botão e textsize tamanho de letra
+
+
+Lado esquerdo →app → java → com.example.activies → New → Activity → Empty Views Activity → Nome TemperaturaActivity → finish
+
+
+Lado esquerdo →app → java → com.example.activies → New → Activity → Empty Views Activity → Nome DistanciaActivity → finish
+
+
+
+
+Activity_temperatura.xml
+private EditText celsius, fahrenheit;
+    private Button botao;
+    private ImageView voltar;
+    private Button botaoLimpar;
+
+Activity_distancia.xml
+private EditText quilometros, milhas;
+    private Button botao;
+    private ImageView voltar;
+    private Button botaoLimpar;
+
+
+
+
+
+
+
+
+
+
+Main Activity.java
+public class MainActivity extends AppCompatActivity {
+    private Button botaoTemp;
+    private Button botaoDist;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        // Relacionar Componentes
+        botaoTemp = findViewById(R.id.temperaturaId);
+        // Ação do botão
+        botaoTemp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        TemperaturaActivity.class));
+            }
+        });
+        botaoDist = findViewById(R.id.distanciaId);
+        botaoDist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        DistanciaActivity.class));
+            }
+        });
+    }
+}
+
+
+
+TemperaturaActivity.java
+public class TemperaturaActivity extends AppCompatActivity {
+    private EditText celsius, fahrenheit;
+    private Button botao;
+    private ImageView voltar;
+    private Button botaoLimpar;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_temperatura);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+// Relacionar Componentes
+        celsius = findViewById(R.id.celsiusId);
+        fahrenheit = findViewById(R.id.farhrenheitId);
+        botao = findViewById(R.id.botaoTempId);
+        voltar = findViewById(R.id.botaoVoltarTempId);
+        botaoLimpar = findViewById(R.id.botaoTempLimparId);
+
+        // Ação do botão
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valorCelsius = celsius.getText().toString();
+                String valorFahrenheit = fahrenheit.getText().toString();
+
+                try {
+                    if (!valorCelsius.isEmpty() && valorFahrenheit.isEmpty()) {
+                        // Celsius para Fahrenheit
+                        double celsiusValue = Double.parseDouble(valorCelsius);
+                        double fahrenheitValue = (celsiusValue * 1.8) + 32;
+                        String resultado = String.format("%.2f", fahrenheitValue);
+                        Toast.makeText(TemperaturaActivity.this, celsiusValue + " °C = " + resultado + " °F", Toast.LENGTH_SHORT).show();
+
+                    } else if (!valorFahrenheit.isEmpty() && valorCelsius.isEmpty()) {
+                        // Fahrenheit para Celsius
+                        double fahrenheitValue = Double.parseDouble(valorFahrenheit);
+                        double celsiusValue = (fahrenheitValue - 32) / 1.8;
+                        String resultado = String.format("%.2f", celsiusValue);
+                        Toast.makeText(TemperaturaActivity.this, fahrenheitValue + " °F = " + resultado + " °C", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(TemperaturaActivity.this, "Preencha apenas um campo!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (NumberFormatException e) {
+                    Toast.makeText(TemperaturaActivity.this, "Digite um valor válido!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        // Ação do botão de limpar
+        botaoLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                celsius.setText("");
+                fahrenheit.setText("");
+                Toast.makeText(TemperaturaActivity.this, "Campos limpos", Toast.LENGTH_SHORT).show();
+            }
+        });
+        voltar = findViewById(R.id.botaoVoltarTempId);
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+}
+
+DistanciaActivity.java
+public class DistanciaActivity extends AppCompatActivity {
+    private EditText quilometros, milhas;
+    private Button botao, botaoLimpar;
+    private ImageView voltar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_distancia);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        // Relacionar Componentes
+        quilometros = findViewById(R.id.quilometroId);
+        milhas = findViewById(R.id.milhasId);
+        botao = findViewById(R.id.botaoCalculaDistId);
+        voltar = findViewById(R.id.botaoVoltarDistId);
+        botaoLimpar = findViewById(R.id.botaoLimparDistId);
+
+        // Ação do botão
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valorKm = quilometros.getText().toString();
+                String valorMilhas = milhas.getText().toString();
+
+                try {
+                    if (!valorKm.isEmpty() && valorMilhas.isEmpty()) {
+                        // KM para Milhas
+                        double kmValue = Double.parseDouble(valorKm);
+                        double milhasValue = kmValue * 0.621371;
+                        String resultado = String.format("%.2f", milhasValue);
+                        Toast.makeText(DistanciaActivity.this, kmValue + " km = " + resultado + " mi", Toast.LENGTH_SHORT).show();
+
+                    } else if (!valorMilhas.isEmpty() && valorKm.isEmpty()) {
+                        // Milhas para KM
+                        double milhasValue = Double.parseDouble(valorMilhas);
+                        double kmValue = milhasValue / 0.621371;
+                        String resultado = String.format("%.2f", kmValue);
+                        Toast.makeText(DistanciaActivity.this, milhasValue + " mi = " + resultado + " km", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(DistanciaActivity.this, "Preencha apenas um campo!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (NumberFormatException e) {
+                    Toast.makeText(DistanciaActivity.this, "Digite um valor válido!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // Ação do botão de limpar
+        botaoLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quilometros.setText("");
+                milhas.setText("");
+                Toast.makeText(DistanciaActivity.this, "Campos limpos", Toast.LENGTH_SHORT).show();
+            }
+        });
+        voltar = findViewById(R.id.botaoVoltarDistId);
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+}
+
+
+
+
