@@ -1,0 +1,119 @@
+Aula 23/09
+
+Fazer um app que contenha 2 activities, na primeira activity colocar uma imagem que ao ser clicada, chama a segunda activity onde deve estar a calculadora de IMC, que pedirá o peso e a altura, fará o calculo e mostrará a classificação do IMC.
+MainActivity.java
+public class MainActivity extends AppCompatActivity {
+    private ImageView calcular;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        calcular = findViewById(R.id.imcId);
+        calcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        CalculadoraActivity.class));
+            }
+        });
+    }
+}
+
+
+
+
+CalculadoraActivity.java 
+
+public class CalculadoraActivity extends AppCompatActivity {
+    private ImageView voltar;
+    private TextView resposta;
+    private EditText peso, altura;
+    private Button calcular, limpar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_calculadora);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        // Relacionar Componentes
+        peso = findViewById(R.id.pesoId);
+        altura = findViewById(R.id.alturaId);
+        calcular = findViewById(R.id.botaoCalcularId);
+        voltar = findViewById(R.id.botaoVoltarId);
+        limpar = findViewById(R.id.botaoLimparId);
+        resposta = findViewById(R.id.respostaId);
+
+        // Ação do botão Calcular
+        calcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pesoStr = peso.getText().toString();
+                String alturaStr = altura.getText().toString();
+
+                if (pesoStr.isEmpty() || alturaStr.isEmpty()) {
+                    resposta.setText("Informe o peso e a altura!");
+                    return;
+                }
+
+                try {
+                    float pesoValor = Float.parseFloat(pesoStr);
+                    float alturaValor = Float.parseFloat(alturaStr);
+
+                    float imc = pesoValor / (alturaValor * alturaValor);
+                    String classificacao;
+
+                    if (imc < 18.5) {
+                        classificacao = "Abaixo do peso";
+                    } else if (imc < 24.9) {
+                        classificacao = "Peso normal";
+                    } else if (imc < 29.9) {
+                        classificacao = "Excesso de peso";
+                    } else if (imc < 34.9) {
+                        classificacao = "Obesidade de Classe 1";
+                    } else if (imc < 39.9) {
+                        classificacao = "Obesidade de Classe 2";
+                    } else {
+                        classificacao = "Obesidade de classe 3";
+                    }
+
+                    resposta.setText(String.format("O IMC é: %.2f\nClassificação: %s", imc, classificacao));
+                } catch (NumberFormatException e) {
+                    resposta.setText("Valores inválidos!");
+                }
+            }
+        });
+
+        // Ação do botão Limpar
+        limpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                peso.setText("");
+                altura.setText("");
+                resposta.setText("");
+            }
+        });
+
+        // Ação do botão Voltar
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); 
+            }
+        });
+    }
+}
+
+
+
